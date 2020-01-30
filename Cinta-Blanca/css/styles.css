@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+.articulo{
+  width: 45%;
+  display: inline-block;
+  margin: 40px 2.5%;
+  padding: 30px;
+  background-color: antiquewhite;
+}
+.pintada {
+  background-color: #cecece;
+}
