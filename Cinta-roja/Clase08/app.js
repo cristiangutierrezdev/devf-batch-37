@@ -6,6 +6,13 @@ const { Product } = require("./models");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// GET ALL ACTIVE PRODUCTS
+app.get("/api/v1/get/all/active", (req, res) => {
+  Product.find({ is_active: true }, (err, response) => {
+    !err ? res.status(200).send(response) : res.send(err);
+  });
+});
+
 // CREATE PRODUCT END POINT
 app.post("/api/v1/create/product", (req, res) => {
   let newProduct = new Product(req.body);
@@ -26,9 +33,27 @@ app.get("/api/v1/get/product/:productid", (req, res) => {
 // UPDATE PRODUCT END POINT
 
 app.put("/api/v1/update/product/:productid", (req, res) => {
-  Product.findByIdAndUpdate(req.params.productid, { $set: req.body }, {new:true}, (err, response) => {
-    !err ? res.status(200).send(response) : res.send(err);
-  });
+  Product.findByIdAndUpdate(
+    req.params.productid,
+    { $set: req.body },
+    { new: true },
+    (err, response) => {
+      !err ? res.status(200).send(response) : res.send(err);
+    }
+  );
+});
+
+// DELETE PRODUCT END POINT
+
+app.delete("/api/v1/delete/product/:productid", (req, res) => {
+  Product.findByIdAndUpdate(
+    req.params.productid,
+    { $set: { is_active: false } },
+    { new: true },
+    (err, response) => {
+      !err ? res.status(200).send(response) : res.send(err);
+    }
+  );
 });
 
 app.listen(PORT, err => {
