@@ -1,0 +1,11 @@
+@media (min-width: 800px) {
+  main {
+    grid-template-areas: "section section section aside";
+  }
+  main section{
+    background-color: coral;
+  }
+  main aside {
+    background-color: greenyellow;
+  }
+}

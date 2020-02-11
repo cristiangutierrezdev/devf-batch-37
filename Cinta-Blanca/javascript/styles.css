@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  padding: 20px;
+}
+.padre{
+  width: 100%;
+  height: 500px;
+  background-color: #cecece;
+  margin-top: 30px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: column;
+}
+
+.padre article {
+  width: 25%;
+  height: 150px;
+}
+
+.rojo{
+  background-color: red;
+  align-self: flex-start;
+  transition: all 1s;
+}
+.verde{
+  background-color: green;
+}
+.morado{
+  background-color: blueviolet;
+  align-self: flex-end;
+  transition: all 5s;
+  position: relative;
+  right: 0;
+}
+.btn {
+  width: 100%;
+  height: 30px;
+  background-color: steelblue;
+  color: white;
+  margin: 30px auto;
+  padding: 0 30px;
+  display: inline-block
+}

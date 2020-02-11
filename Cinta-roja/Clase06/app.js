@@ -9,7 +9,7 @@ app.get("/", (request, response) => {
 });
 
 app.get("/home", (request, response) => {
-  response.send("Hello i am at home");
+  response.send("Hello i am at home");  
 });
 
 app.post("/create/user", (req, res) => {
@@ -23,7 +23,9 @@ app.get("/user/:userid", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-  console.log(req.query);
+  let {num1, num2} = req.query
+  num1 = Number(num1)
+  num2 = Number(num2)
   res.status(404).send("hola");
 });
 

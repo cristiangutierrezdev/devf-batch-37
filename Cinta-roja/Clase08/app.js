@@ -1,13 +1,16 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const { Product } = require("./models");
+const { Product, User } = require("./models");
+const cors = require("cors");
+const {generateToken, validateToken} = require("./middlewares/token")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 // GET ALL ACTIVE PRODUCTS
-app.get("/api/v1/get/all/active", (req, res) => {
+app.get("/api/v1/get/all/active", validateToken, (req, res) => {
   Product.find({ is_active: true }, (err, response) => {
     !err ? res.status(200).send(response) : res.send(err);
   });
@@ -55,6 +58,47 @@ app.delete("/api/v1/delete/product/:productid", (req, res) => {
     }
   );
 });
+
+// USER CREATE
+
+app.post("/api/v1/user/create", validateToken, (req, res) => {
+  const newUser = new User(req.body);
+
+  newUser.save((err, response) => {
+    if (!err) {
+      res.status(201).send(response);
+    } else {
+      res.status(409).send(err);
+    }
+  });
+});
+
+// USER LOGIN
+
+app.post("/api/v1/user/login", (req, res) => {
+  const { email, password } = req.body;
+
+  User.findOne({ email: email }, (err, dbUser) => {
+    if (!err) {
+      dbUser.comparePassword(password, (err, isMatch) => {
+        if (!err) {
+          if (isMatch) {
+            const token = generateToken(dbUser)
+            res.status(200).send(token);
+          } else {
+            res.status(404).send("Invalid password");
+          }
+        } else {
+          res.status(409).send(err);
+        }
+      });
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+
 
 app.listen(PORT, err => {
   err ? console.log(err) : console.log(`Server on port ${PORT}`);

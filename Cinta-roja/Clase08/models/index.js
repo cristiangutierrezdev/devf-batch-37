@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bdUrl =
   "mongodb+srv://root:root@cluster0-07urh.mongodb.net/cinta-roja-b37?retryWrites=true&w=majority";
 const Product = require("./Product");
-const User = require("./User");
+const User = require("./User")
 
 mongoose.connect(
   bdUrl,
@@ -13,5 +13,6 @@ mongoose.connect(
 );
 
 module.exports = {
-  Product
+  Product,
+  User
 };
